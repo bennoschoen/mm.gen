@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mm</groupId>
+	<artifactId>mm</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<name>mm.gen Parent Project</name>
+	<description>Parent Project for all artifacts of mm.gen</description>
+
+	<modules>
+		<module>mm.gen</module>
+		<module>mm.io</module>
+		<module>mm.o5m.reader</module>
+		<module>mm.tile.gen</module>
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>		    
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>2.7.1</version>
+				<executions>
+					<execution>
+						<id>generate-pmd-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>pmd</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.7</targetJdk>
+					<includeXmlInSite>true</includeXmlInSite>
+					<aggregate>true</aggregate>
+					<rulesets>
+						<ruleset>/rulesets/braces.xml</ruleset>
+						<ruleset>/rulesets/basic.xml</ruleset>
+						<ruleset>/rulesets/design.xml</ruleset>
+						<ruleset>/rulesets/imports.xml</ruleset>
+						<ruleset>/rulesets/sunsecure.xml</ruleset>
+						<ruleset>/rulesets/typeresolution.xml</ruleset>
+						<ruleset>/rulesets/migrating.xml</ruleset> 
+						<ruleset>/rulesets/logging-jakarta-commons.xml</ruleset>
+						<ruleset>/rulesets/logging-java.xml</ruleset>
+						<ruleset>/rulesets/migrating.xml</ruleset>
+						<ruleset>/rulesets/clone.xml</ruleset>
+						<ruleset>/rulesets/finalizers.xml</ruleset>
+						<ruleset>/rulesets/unusedcode.xml</ruleset>
+						<ruleset>/rulesets/optimizations.xml</ruleset>
+					</rulesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
