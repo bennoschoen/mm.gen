@@ -21,7 +21,6 @@ package mm.gen.db;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 import mm.gen.config.MapConfig;
 import mm.gen.config.inst.CopyStaticFiles;
