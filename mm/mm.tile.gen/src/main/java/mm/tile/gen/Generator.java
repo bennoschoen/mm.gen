@@ -38,8 +38,6 @@ import mm.tile.gen.resolve.RelationRelationResolver;
 import mm.tile.gen.resolve.RelationWayResolver;
 import mm.tile.gen.resolve.WayNodeResolver;
 
-import org.json.JSONException;
-
 /**
  * @author benno
  * 
@@ -103,13 +101,6 @@ public class Generator {
 						way.addNode(node);
 					}
 					wayWriter.writeStreamable(way);
-					if (way.getId() == 23492714) {
-						try {
-							System.out.println(way.toJSON().toString(4));
-						} catch (final JSONException e) {
-							e.printStackTrace();
-						}
-					}
 				} catch (final IOException e) {
 					e.printStackTrace();
 				}
@@ -148,7 +139,6 @@ public class Generator {
 							case MAX:
 							default:
 								break;
-
 							}
 						}
 						relationWriter.writeStreamable(relation);

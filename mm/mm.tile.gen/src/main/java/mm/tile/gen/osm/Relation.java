@@ -48,7 +48,9 @@ public class Relation implements Streamable {
 	protected List<Member<Node>> nodes = new ArrayList<>();
 	protected List<Member<Way>> ways = new ArrayList<>();
 	protected List<Member<Relation>> relations = new ArrayList<>();
-	protected HashMap<String, String> props = new HashMap<String, String>();
+	protected final HashMap<String, String> props = new HashMap<String, String>();
+	protected final Set<String> keySet = props.keySet();
+
 
 	public Relation() {
 
@@ -171,9 +173,8 @@ public class Relation implements Streamable {
 	@Override
 	public void writeExternal(final ObjectOutput out) throws IOException {
 		out.writeLong(id);
-		final Set<String> keys = props.keySet();
-		out.writeInt(keys.size());
-		for (final String key : keys) {
+		out.writeInt(keySet.size());
+		for (final String key : keySet) {
 			StreamIo.writeString(out, key);
 			StreamIo.writeString(out, props.get(key));
 		}
@@ -243,7 +244,7 @@ public class Relation implements Streamable {
 		final JSONArray jRelations = new JSONArray();
 
 		ret.put("id", id);
-		for (final String key : this.props.keySet()) {
+		for (final String key : keySet) {
 			final JSONObject prop = new JSONObject();
 			prop.put("k", key);
 			prop.put("v", this.props.get(key));

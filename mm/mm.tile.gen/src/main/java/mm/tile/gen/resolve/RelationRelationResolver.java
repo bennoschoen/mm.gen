@@ -51,6 +51,7 @@ import org.json.JSONException;
 public class RelationRelationResolver {
 	final File relationFile;
 	final File tempPath;
+	private final static int MAX_SIZE = 10000; 
 
 	private final ReferedHandler<Relation> manyHandler = new ReferedHandler<Relation>() {
 
@@ -169,7 +170,7 @@ public class RelationRelationResolver {
 		}
 		ReferenceResolver.resolveReferences(resultFile, manyRelationsFile, tempSomeReleationFile,
 				tempPath, new Relation.RelationFactory(), new Relation.RelationFactory(),
-				manyHandler, oneHandler);
+				manyHandler, oneHandler, MAX_SIZE);
 		tempSomeReleationFile.delete();
 		return resultFile;
 	}

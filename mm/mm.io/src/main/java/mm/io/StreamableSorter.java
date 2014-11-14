@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import mm.io.base.MemoryReservoir;
+
 /**
  * MergeSort implementation that is able to sort a complete file of Streamable
  * objects using a Comparator. Hence the objects must not implement Comparable.
@@ -44,6 +46,7 @@ public class StreamableSorter<T extends Streamable> {
 	protected final int maxSize;
 	protected LinkedList<File> splittedFiles = new LinkedList<>();
 	protected static final int MaxSize = 50000;
+	protected static final int reservoireSize = 20 * 1024 * 1024; // 20 MB
 
 	/**
 	 * Constructor for a MergeSorter with DefaulMaxSize first level sorted files
@@ -114,11 +117,16 @@ public class StreamableSorter<T extends Streamable> {
 	protected void presortFile() throws IOException {
 		final TreeSet<T> preSorter = new TreeSet<>(comparator);
 		final StreamableIterator<T> iter = new StreamableIterator<>(f, factory);
+		MemoryReservoir reservoir = new MemoryReservoir(reservoireSize);
 		while (iter.hasNext()) {
 			preSorter.add(iter.next());
-			if (preSorter.size() >= maxSize) {
+			boolean isInReservoir = reservoir.isInReservoir();
+			if (preSorter.size() >= maxSize || isInReservoir) {
 				storeToTempFile(preSorter);
 				preSorter.clear();
+				if (isInReservoir || reservoir.isInReservoir()){
+					reservoir = new MemoryReservoir(reservoireSize);	
+				}
 			}
 		}
 		if (preSorter.size() > 0) {

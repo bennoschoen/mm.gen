@@ -37,7 +37,7 @@ import mm.tile.gen.osm.Way;
  */
 public class WayNodeResolver {
 
-	private final int MAX_SIZE = 800000;
+	private final int MAX_SIZE = 100000;
 
 	private final ReferedHandler<Node> manyHandler = new ReferedHandler<Node>() {
 

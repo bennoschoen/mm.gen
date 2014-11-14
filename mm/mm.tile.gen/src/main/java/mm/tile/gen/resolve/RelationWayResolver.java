@@ -46,6 +46,7 @@ import mm.tile.gen.osm.Relation.RelationFactory;
  * 
  */
 public class RelationWayResolver {
+	private final static int MAX_SIZE = 10000;
 
 	private final ReferedHandler<Way> manyHandler = new ReferedHandler<Way>() {
 
@@ -150,7 +151,7 @@ public class RelationWayResolver {
 	private void resolveWays1(final File destFile, final File relationFile, final File wayFile,
 			final File tempDir) throws IOException {
 		ReferenceResolver.resolveReferences(destFile, relationFile, wayFile, tempDir,
-				new Relation.RelationFactory(), new Way.WayFactory(), manyHandler, oneHandler);
+				new Relation.RelationFactory(), new Way.WayFactory(), manyHandler, oneHandler, MAX_SIZE);
 	}
 
 	public static void resolveWays(final File destFile, final File relationFile,

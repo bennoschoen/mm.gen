@@ -22,7 +22,8 @@ public class Node implements Streamable {
 	protected double lat = 0;
 	protected double lon = 0;
 
-	protected HashMap<String, String> props = new HashMap<String, String>();
+	protected final HashMap<String, String> props = new HashMap<String, String>();
+	protected final Set<String> keySet = props.keySet();
 
 	public Node() {
 	}
@@ -116,7 +117,7 @@ public class Node implements Streamable {
 			ret.put("lon", lon);
 			ret.put("id", id);
 			final JSONArray props = new JSONArray();
-			for (final String key : this.props.keySet()) {
+			for (final String key : keySet) {
 				final JSONObject prop = new JSONObject();
 				prop.put("k", key);
 				prop.put("v", this.props.get(key));
@@ -177,9 +178,8 @@ public class Node implements Streamable {
 		out.writeLong(id);
 		out.writeDouble(lat);
 		out.writeDouble(lon);
-		final Set<String> keys = props.keySet();
-		out.writeInt(keys.size());
-		for (final String key : keys) {
+		out.writeInt(keySet.size());
+		for (final String key : keySet) {
 			StreamIo.writeString(out, key);
 			StreamIo.writeString(out, props.get(key));
 		}
